@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\LoanController;
+use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,4 +17,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('get-token',[AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->get('get-loan-status', [LoanController::class, 'getStatus']);
