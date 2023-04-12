@@ -52,6 +52,8 @@ DB_PASSWORD=<DB_PASSWORD>
 ```  
 php artisan key:generate
 php artisan migrate --seed
+npm install
+npm run build
 php artisan serve
 ```
 8. Access the system via
