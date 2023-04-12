@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoanStatusRequest;
 use App\Models\Customer;
 use App\Models\Loan;
-use Illuminate\Http\Request;
+use App\Models\Request;
 
 class LoanController extends Controller
 {
@@ -50,20 +51,30 @@ class LoanController extends Controller
  * 
  */
 
-    public function getStatus(Request $request){
-
-        $request->validate([
-            //todo to validate  if account_-id exists 
-            "account_number" => ['required', 'exists:customers,account_number', 'max:10']
-        ]);
-
+    public function getStatus(LoanStatusRequest $request){
 
         $customer = Customer::where('account_number', $request->account_number)->firstOrFail();
-        //get customer with account id
-        //get loans for account id
-        //return in response
+
+        $loans = $customer->loans;
+
+        if($loans->count() > 0 ){
+            Request::create(
+                [
+                    'request_status' => 'valid_with_loan',
+                    'payload' => request()
+                ]
+            );
+        }else{
+            Request::create(
+                [
+                    'request_status' => 'valid_without_loan',
+                    'payload' => request()
+                ]
+            );
+        }
 
 
         return response()->json($customer->loans);
+        
     }
 }
