@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Request;
 
 class HomeController extends Controller
 {
@@ -23,6 +23,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+
+        $requests = Request::all();
+
+        $requests = $requests->groupBy(function ($req){
+            return $req->request_status;
+        })->map(function ($req){
+            return $req->count();
+        });
+
+        return view('home', [
+            'requests_count' => $requests
+        ]);
     }
 }

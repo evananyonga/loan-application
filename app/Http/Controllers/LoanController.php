@@ -55,7 +55,7 @@ class LoanController extends Controller
 
         $customer = Customer::where('account_number', $request->account_number)->firstOrFail();
 
-        $loans = $customer->loans;
+        $loans = $customer->loans()->where('outstanding_balance', '>', 0 )->get();
 
         if($loans->count() > 0 ){
             Request::create(
@@ -74,7 +74,7 @@ class LoanController extends Controller
         }
 
 
-        return response()->json($customer->loans);
+        return response()->json($loans);
         
     }
 }

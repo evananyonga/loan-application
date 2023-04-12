@@ -6,3 +6,38 @@
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+
+
+body{
+    background: rgb(241 245 249);
+}
+
+.dashboard-flex{
+    width: 100%;
+}
+
+.dashboard-card{
+    box-shadow: 0px 3px 20px #0000000b;
+    width: 250px;
+    position: relative;
+    border-radius: 0.375rem;
+    border-color: transparent;
+    background-color: #fff;
+    padding: 12px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: start;
+    flex-direction: column;
+
+}
+
+.dashboard-card .label{
+    color: rgb(var(--color-slate-500) / var(--tw-text-opacity));
+}
+
+.dashboard-card .value{
+    line-height: 2rem;
+    font-weight: 500;
+    font-size: 1.875rem;
+    margin-top: 1.5rem;
+}
