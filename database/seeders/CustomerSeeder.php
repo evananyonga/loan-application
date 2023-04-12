@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class CustomerSeeder extends Seeder
 {
@@ -12,6 +13,12 @@ class CustomerSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        DB::table('customers')->insert([
+            'first_name' => 'First',
+            'last_name' => 'Customer',
+            'account_number' => 'DF56748291',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()->subMinutes(2)->diffForHumans()
+        ]);
     }
 }
