@@ -1,0 +1,122 @@
+{
+    "variable": [
+        {
+            "id": "baseUrl",
+            "key": "baseUrl",
+            "type": "string",
+            "name": "string",
+            "value": "localhost:8000"
+        }
+    ],
+    "info": {
+        "name": "Loan Application",
+        "_postman_id": "5f69c12f-a6aa-4320-b4d9-15c8e68bf896",
+        "description": "This is an application to check Loan statuses of DFU customers",
+        "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
+    },
+    "item": [
+        {
+            "name": "Endpoints",
+            "description": "",
+            "item": [
+                {
+                    "name": "POST api\/get-token",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/get-token",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/get-token"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"email\":\"email@email.com\",\"password\":\"Pass&LSD2\",\"token_name\":\"BankSystem\\n\\nIf you are able to Login everything is okay, you'll get a 200 OK response with the response:.\"}"
+                        },
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "API to view loan status",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/get-loan-status",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/get-loan-status"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"account_number\":\"5637294326\\n\\nIf you pass a ten-digit account number and everything is okay, you'll get a 200 OK response with the response:.\"}"
+                        },
+                        "description": "To access the API, a registered user must pass a valid token to the headers of the Loan API\n\nAccept: application\/json\nAuthorization: Bearer {token}\n\nWithout the valid headers, the user will get a response:",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"Unauthenticated\"}\n\nWithout the right parameters, the response will be:",
+                            "name": "Unauthenticated"
+                        },
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 401,
+                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\n\"message\": \"The account number field is required.\",\n\"errors\": {\n\"account_number\": [\n\"The account number field is required.\"\n]\n}\n }",
+                            "name": "Unprocessable Content"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "auth": {
+        "type": "noauth"
+    }
+}

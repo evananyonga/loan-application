@@ -1,0 +1,145 @@
+name: Endpoints
+description: ''
+endpoints:
+  -
+    httpMethods:
+      - POST
+    uri: api/get-token
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        name: email
+        description: 'The email used for the system.'
+        required: true
+        example: email@email.com
+        type: string
+        custom: []
+      password:
+        name: password
+        description: 'Preferred password.'
+        required: true
+        example: 'Pass&LSD2'
+        type: string
+        custom: []
+      token_name:
+        name: token_name
+        description: 'The name of the system querying the Loan API.'
+        required: true
+        example: |-
+          BankSystem
+
+          If you are able to Login everything is okay, you'll get a 200 OK response with the response:.
+        type: string
+        custom: []
+    cleanBodyParameters:
+      email: email@email.com
+      password: 'Pass&LSD2'
+      token_name: |-
+        BankSystem
+
+        If you are able to Login everything is okay, you'll get a 200 OK response with the response:.
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/get-loan-status
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'API to view loan status'
+      description: |-
+        To access the API, a registered user must pass a valid token to the headers of the Loan API
+
+        Accept: application/json
+        Authorization: Bearer {token}
+
+        Without the valid headers, the user will get a response:
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      account_number:
+        name: account_number
+        description: 'The Account Number in the system.'
+        required: false
+        example: |-
+          5637294326
+
+          If you pass a ten-digit account number and everything is okay, you'll get a 200 OK response with the response:.
+        type: required
+        custom: []
+    cleanBodyParameters:
+      account_number: |-
+        5637294326
+
+        If you pass a ten-digit account number and everything is okay, you'll get a 200 OK response with the response:.
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: |-
+          {"Unauthenticated"}
+
+          Without the right parameters, the response will be:
+        headers: []
+        description: Unauthenticated
+        custom: []
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+      -
+        status: 422
+        content: |-
+          {
+          "message": "The account number field is required.",
+          "errors": {
+          "account_number": [
+          "The account number field is required."
+          ]
+          }
+           }
+        headers: []
+        description: 'Unprocessable Content'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []

@@ -1,0 +1,103 @@
+openapi: 3.0.3
+info:
+  title: 'Loan Application'
+  description: 'This is an application to check Loan statuses of DFU customers'
+  version: 1.0.0
+servers:
+  -
+    url: 'localhost:8000'
+paths:
+  /api/get-token:
+    post:
+      summary: ''
+      operationId: postApiGetToken
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'The email used for the system.'
+                  example: email@email.com
+                password:
+                  type: string
+                  description: 'Preferred password.'
+                  example: 'Pass&LSD2'
+                token_name:
+                  type: string
+                  description: 'The name of the system querying the Loan API.'
+                  example: "BankSystem\n\nIf you are able to Login everything is okay, you'll get a 200 OK response with the response:."
+              required:
+                - email
+                - password
+                - token_name
+      security: []
+  /api/get-loan-status:
+    get:
+      summary: 'API to view loan status'
+      operationId: aPIToViewLoanStatus
+      description: "To access the API, a registered user must pass a valid token to the headers of the Loan API\n\nAccept: application/json\nAuthorization: Bearer {token}\n\nWithout the valid headers, the user will get a response:"
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+        422:
+          description: 'Unprocessable Content'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'The account number field is required.'
+                  errors:
+                    account_number:
+                      - 'The account number field is required.'
+                properties:
+                  message:
+                    type: string
+                    example: 'The account number field is required.'
+                  errors:
+                    type: object
+                    properties:
+                      account_number:
+                        type: array
+                        example:
+                          - 'The account number field is required.'
+                        items:
+                          type: string
+      tags:
+        - Endpoints
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                account_number:
+                  type: required
+                  description: 'The Account Number in the system.'
+                  example: "5637294326\n\nIf you pass a ten-digit account number and everything is okay, you'll get a 200 OK response with the response:."
+      security: []
+tags:
+  -
+    name: Endpoints
+    description: ''
