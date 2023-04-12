@@ -56,3 +56,5 @@ php artisan serve
 ```
 8. Access the system via
     http://localhost:8000 or http://127.0.0.1:8000
+
+9. To access documentation use: http://localhost:8000/docs or http://127.0.0.1:8000/docs
